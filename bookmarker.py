@@ -43,6 +43,8 @@ class Bookmarker(QtWidgets.QWidget):
             button.setFixedSize(*button_size)
 
     def button_action(self):
+        for open in nuke.openPanels():
+            nuke.toNode(open).hideControlPanel()
         sender = self.sender()
         modifiers = QtWidgets.QApplication.keyboardModifiers()  # Get the current keyboard modifiers
         shift_pressed = modifiers & QtCore.Qt.ShiftModifier  # Check if Shift is pressed
@@ -60,6 +62,8 @@ class Bookmarker(QtWidgets.QWidget):
 
         with selected(selection_list):
             nuke.zoomToFitSelected()
+        for n in selection_list:
+            n.showControlPanel()
 
 
 if __name__ == '__main__':
